@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quarterly Estimated Tax Calculator 2027 for Freelancers | SetAside Sheet</title>
+  <meta name="description" content="Free quarterly estimated tax calculator for US freelancers and 1099 workers. See how much to set aside and what to pay by each 2026 and 2027 IRS due date. No sign-up.">
+  <meta property="og:title" content="How much should you set aside for taxes? Free 1099 calculator">
+  <meta property="og:description" content="Self-employment tax + federal income tax, quarterly payments, safe harbor. Uses IRS 2026 and 2027 numbers.">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230F3D2E'/%3E%3Ctext x='16' y='22' font-family='Georgia' font-size='17' fill='%23F2B84B' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="logo" href="./"><span class="logo-mark">S</span>SetAside Sheet</a>
+      <nav aria-label="Main">
+        <a href="#calculator">Calculator</a>
+        <a href="#workbook">Workbook</a>
+        <a href="#guides">Guides</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero wrap">
+      <p class="eyebrow">For US freelancers, contractors &amp; side hustlers</p>
+      <h1>Know exactly how much to set aside for taxes.</h1>
+      <p class="lede">A free calculator for quarterly estimated taxes. It adds up self-employment tax and federal income tax using the IRS numbers for 2026 and 2027, then shows what to pay by each due date.</p>
+      <a class="btn btn-primary" href="#calculator">Calculate my quarterly taxes</a>
+    </section>
+
+    <section id="calculator" class="wrap calc" aria-labelledby="calc-title">
+      <h2 id="calc-title">Quarterly estimated tax calculator</h2>
+      <form id="calc-form" class="calc-grid" novalidate>
+        <fieldset>
+          <legend>Basics</legend>
+          <label>Tax year
+            <select name="year"><option value="2027" selected>2027</option><option value="2026">2026</option></select>
+          </label>
+          <label>Filing status
+            <select name="status"><option value="single">Single</option><option value="mfj">Married filing jointly</option></select>
+          </label>
+        </fieldset>
+        <fieldset>
+          <legend>Self-employment (whole year)</legend>
+          <label>Expected 1099 / business income ($)
+            <input name="income" type="number" inputmode="decimal" min="0" step="100" value="60000" required>
+          </label>
+          <label>Business expenses ($)
+            <input name="expenses" type="number" inputmode="decimal" min="0" step="100" value="0">
+          </label>
+        </fieldset>
+        <details>
+          <summary>More options (W-2 job, state, safe harbor)</summary>
+          <div class="more-grid">
+            <label>W-2 wages ($)<input name="w2Wages" type="number" inputmode="decimal" min="0" step="100" value="0"></label>
+            <label>Federal tax withheld from W-2 ($)<input name="w2Withholding" type="number" inputmode="decimal" min="0" step="100" value="0"></label>
+            <label>Other taxable income ($)<input name="otherIncome" type="number" inputmode="decimal" min="0" step="100" value="0"></label>
+            <label>State income tax rate (%)<input name="statePercent" type="number" inputmode="decimal" min="0" max="20" step="0.1" value="0"></label>
+            <label>Last year's total tax ($, optional)<input name="priorYearTax" type="number" inputmode="decimal" min="0" step="100" placeholder="from last year's Form 1040"></label>
+            <label>Last year's AGI ($, optional)<input name="priorYearAgi" type="number" inputmode="decimal" min="0" step="100"></label>
+            <label>Estimated payments already made this year ($)<input name="alreadyPaid" type="number" inputmode="decimal" min="0" step="100" value="0"></label>
+          </div>
+        </details>
+        <p id="calc-error" class="error" role="alert" hidden></p>
+      </form>
+
+      <div id="results" class="results" aria-live="polite">
+        <div class="result-main">
+          <p class="result-label">Set aside</p>
+          <p class="result-big"><span id="r-percent">–</span><small> of every payment</small></p>
+          <p class="result-label">Pay each quarter (federal)</p>
+          <p class="result-big" id="r-quarterly">–</p>
+          <p class="muted" id="r-state-line" hidden>Plus about <strong id="r-quarterly-state"></strong> per quarter for your state.</p>
+        </div>
+        <dl class="breakdown">
+          <div><dt>Net profit</dt><dd id="r-profit">–</dd></div>
+          <div><dt>Self-employment tax</dt><dd id="r-se">–</dd></div>
+          <div><dt>Federal income tax</dt><dd id="r-income">–</dd></div>
+          <div><dt>Federal total</dt><dd id="r-fedtotal">–</dd></div>
+          <div><dt>Your top bracket</dt><dd id="r-marginal">–</dd></div>
+          <div id="r-safe-row" hidden><dt>Minimum per quarter to avoid an underpayment penalty (safe harbor)</dt><dd id="r-safe">–</dd></div>
+          <div><dt>Still to pay this year</dt><dd id="r-remaining">–</dd></div>
+        </dl>
+        <div class="due">
+          <p class="result-label">IRS due dates</p>
+          <ol id="r-dates"></ol>
+        </div>
+      </div>
+      <p class="disclaimer">This is an estimate for planning, not tax advice. It covers federal income tax and self-employment tax using the standard deduction. It does not include credits, the QBI deduction, or itemized deductions, so it usually errs on the side of setting aside a little more. Check with a tax professional for your situation.</p>
+    </section>
+
+    <section id="workbook" class="wrap workbook">
+      <div>
+        <p class="eyebrow">The SetAside Sheet Workbook</p>
+        <h2>Track it all year, not just once.</h2>
+        <p>The calculator gives you one estimate. The workbook keeps it up to date as money comes in.</p>
+        <ul class="checks">
+          <li>Log income and expenses by month; your set-aside updates automatically</li>
+          <li>Each IRS due date with the amount to pay and a log of what you paid</li>
+          <li>Safe-harbor check so you know the minimum to avoid a penalty</li>
+          <li>Works in Excel and Google Sheets. One-time purchase, no subscription</li>
+          <li>Same tax math as this calculator, checked by automated tests</li>
+        </ul>
+        <a class="btn btn-primary" data-buy href="#workbook">Get the workbook</a>
+        <p class="muted" data-buy-note hidden>The workbook is launching soon. The calculator above is free to use now.</p>
+      </div>
+    </section>
+
+    <section id="guides" class="wrap guides">
+      <h2>Guides</h2>
+      <div class="guide-grid">
+        <a class="guide-card" href="quarterly-estimated-taxes-2027.html"><strong>Quarterly estimated taxes 2027</strong><span>Who must pay, the four due dates, and how to pay the IRS.</span></a>
+        <a class="guide-card" href="how-much-to-set-aside-for-taxes-1099.html"><strong>How much to set aside for taxes</strong><span>The right percentage at different incomes, with or without a W-2 job.</span></a>
+        <a class="guide-card" href="estimated-tax-safe-harbor.html"><strong>The safe harbor rule, explained</strong><span>The 90% / 100% / 110% rule that keeps you clear of penalties.</span></a>
+      </div>
+    </section>
+
+    <section id="faq" class="wrap faq">
+      <h2>Questions</h2>
+      <details><summary>Who has to pay quarterly estimated taxes?</summary><p>Generally, if you expect to owe $1,000 or more in federal tax for the year after withholding and credits, the IRS expects you to pay during the year. That is common for freelancers and 1099 contractors because nobody withholds tax from their pay. See IRS Form 1040-ES.</p></details>
+      <details><summary>What is self-employment tax?</summary><p>It is Social Security and Medicare tax for people who work for themselves: 15.3% on 92.35% of net profit, with the Social Security part capped at the yearly wage base ($184,500 for 2026, $192,300 for 2027). It applies once your net profit reaches $400.</p></details>
+      <details><summary>What is the safe harbor?</summary><p>You generally avoid an underpayment penalty if you pay at least 90% of this year's tax, or 100% of last year's tax (110% if last year's AGI was over $150,000), spread across the four due dates.</p></details>
+      <details><summary>Does this include state tax?</summary><p>Only as a simple percentage you enter under "More options". State rules vary a lot, so check your state's estimated tax page.</p></details>
+      <details><summary>Do you store my numbers?</summary><p>No. The calculator runs entirely in your browser. Nothing you type is sent anywhere.</p></details>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <p>© 2026 SetAside Sheet. Estimates only, not tax, legal or financial advice.</p>
+      <nav aria-label="Legal"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></nav>
+    </div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/buy.js"></script>
+  <script src="js/tax.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
