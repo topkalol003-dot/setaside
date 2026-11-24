@@ -23,6 +23,8 @@
     byId("r-percent").textContent = r.setAsidePercent.toFixed(1) + "%";
     byId("r-quarterly").textContent = usd.format(r.quarterlyFederal);
     byId("r-state-line").hidden = r.quarterlyState <= 0;
+    // IRS: estimated payments are generally required only if you expect to owe $1,000+ after withholding.
+    byId("r-threshold").hidden = !(r.federalDueAfterWithholding > 0 && r.federalDueAfterWithholding < 1000);
     byId("r-quarterly-state").textContent = usd.format(r.quarterlyState);
     byId("r-profit").textContent = usd.format(r.netProfit);
     byId("r-se").textContent = usd.format(r.seTax);
