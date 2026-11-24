@@ -1,0 +1,109 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//SetAside Sheet//Estimated Tax Calendar 2027//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:IRS Estimated Tax Due Dates (SetAside Sheet)
+BEGIN:VEVENT
+UID:setaside-2027-01-15@setaside-sheet
+DTSTAMP:20261124T000000Z
+DTSTART;VALUE=DATE:20270115
+DTEND;VALUE=DATE:20270116
+SUMMARY:Q4 2026 estimated tax payment due
+DESCRIPTION:Last 2026 estimated payment (Form 1040-ES\, tax year 2026). Pay
+  at irs.gov/payments (IRS Direct Pay > Estimated tax). Free calculator: ht
+ tps://topkalol003-dot.github.io/setaside/ - Estimate only\, not tax advice.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Estimated tax payment due in 7 days
+TRIGGER:-P7D
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Estimated tax payment due tomorrow
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:setaside-2027-04-15@setaside-sheet
+DTSTAMP:20261124T000000Z
+DTSTART;VALUE=DATE:20270415
+DTEND;VALUE=DATE:20270416
+SUMMARY:Q1 2027 estimated tax payment due
+DESCRIPTION:Covers income earned Jan 1 - Mar 31\, 2027. Also the 2026 retur
+ n deadline. Pay at irs.gov/payments (IRS Direct Pay > Estimated tax). Free
+  calculator: https://topkalol003-dot.github.io/setaside/ - Estimate only\,
+  not tax advice.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Estimated tax payment due in 7 days
+TRIGGER:-P7D
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Estimated tax payment due tomorrow
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:setaside-2027-06-15@setaside-sheet
+DTSTAMP:20261124T000000Z
+DTSTART;VALUE=DATE:20270615
+DTEND;VALUE=DATE:20270616
+SUMMARY:Q2 2027 estimated tax payment due
+DESCRIPTION:Covers income earned Apr 1 - May 31\, 2027. Pay at irs.gov/paym
+ ents (IRS Direct Pay > Estimated tax). Free calculator: https://topkalol00
+ 3-dot.github.io/setaside/ - Estimate only\, not tax advice.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Estimated tax payment due in 7 days
+TRIGGER:-P7D
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Estimated tax payment due tomorrow
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:setaside-2027-09-15@setaside-sheet
+DTSTAMP:20261124T000000Z
+DTSTART;VALUE=DATE:20270915
+DTEND;VALUE=DATE:20270916
+SUMMARY:Q3 2027 estimated tax payment due
+DESCRIPTION:Covers income earned Jun 1 - Aug 31\, 2027. Pay at irs.gov/paym
+ ents (IRS Direct Pay > Estimated tax). Free calculator: https://topkalol00
+ 3-dot.github.io/setaside/ - Estimate only\, not tax advice.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Estimated tax payment due in 7 days
+TRIGGER:-P7D
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Estimated tax payment due tomorrow
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:setaside-2028-01-18@setaside-sheet
+DTSTAMP:20261124T000000Z
+DTSTART;VALUE=DATE:20280118
+DTEND;VALUE=DATE:20280119
+SUMMARY:Q4 2027 estimated tax payment due
+DESCRIPTION:Covers income earned Sep 1 - Dec 31\, 2027. Jan 15\, 2028 is a 
+ Saturday and Jan 17 is MLK Day\; confirm on IRS.gov. Pay at irs.gov/paymen
+ ts (IRS Direct Pay > Estimated tax). Free calculator: https://topkalol003-
+ dot.github.io/setaside/ - Estimate only\, not tax advice.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Estimated tax payment due in 7 days
+TRIGGER:-P7D
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Estimated tax payment due tomorrow
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+END:VCALENDAR
