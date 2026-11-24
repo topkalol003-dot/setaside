@@ -1,0 +1,44 @@
+name: site-monitor
+# Daily health check of the live site and the Gumroad product page.
+# On failure GitHub emails the repository owner. Manual run: Actions -> site-monitor -> Run workflow.
+on:
+  schedule:
+    - cron: "17 6 * * *"   # every day 06:17 UTC
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Tax engine sanity check (known 2027 example)
+        run: |
+          node -e '
+            const SA = require("./js/tax.js");
+            const r = SA.estimate({ year: 2027, status: "single", income: 60000 });
+            if (Math.abs(r.federalTotal - 12921.07) > 0.01) { console.error("federalTotal", r.federalTotal); process.exit(1); }
+            const h = SA.estimate({ year: 2027, status: "hoh", income: 60000 });
+            if (Math.abs(h.quarterlyFederal - 2953.27) > 0.01) { console.error("hoh quarterly", h.quarterlyFederal); process.exit(1); }
+            console.log("engine ok");'
+      - name: Every sitemap URL returns 200
+        run: |
+          set -euo pipefail
+          fail=0
+          for url in $(grep -o '<loc>[^<]*' sitemap.xml | sed 's/<loc>//'); do
+            code=$(curl -s -o /dev/null -w '%{http_code}' --retry 2 "$url")
+            echo "$code $url"
+            [ "$code" = "200" ] || fail=1
+          done
+          exit $fail
+      - name: Buy link is set and Gumroad product page is up
+        run: |
+          set -euo pipefail
+          url=$(grep -o 'https://[^"]*gumroad.com/l/[^"]*' js/config.js)
+          test -n "$url"
+          code=$(curl -s -o /dev/null -w '%{http_code}' -L --retry 2 "$url")
+          echo "$code $url"
+          test "$code" = "200"
