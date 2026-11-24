@@ -14,20 +14,22 @@
 
   var TAX_YEARS = Object.freeze({
     2026: Object.freeze({
-      standardDeduction: { single: 16100, mfj: 32200 },
+      standardDeduction: { single: 16100, mfj: 32200, hoh: 24150 },
       // Lower bound of brackets 12%..37% (10% starts at 0)
       brackets: {
         single: [12400, 50400, 105700, 201775, 256225, 640600],
-        mfj: [24800, 100800, 211400, 403550, 512450, 768700]
+        mfj: [24800, 100800, 211400, 403550, 512450, 768700],
+        hoh: [17700, 67450, 105700, 201750, 256200, 640600]
       },
       ssWageBase: 184500,
       dueDates: ["2026-04-15", "2026-06-15", "2026-09-15", "2027-01-15"]
     }),
     2027: Object.freeze({
-      standardDeduction: { single: 16600, mfj: 33200 },
+      standardDeduction: { single: 16600, mfj: 33200, hoh: 24925 },
       brackets: {
         single: [12800, 52025, 109125, 208325, 264550, 661375],
-        mfj: [25600, 104050, 218250, 416650, 529100, 793650]
+        mfj: [25600, 104050, 218250, 416650, 529100, 793650],
+        hoh: [18250, 69650, 109100, 208300, 264550, 661350]
       },
       ssWageBase: 192300,
       dueDates: ["2027-04-15", "2027-06-15", "2027-09-15", "2028-01-18"]
@@ -38,7 +40,7 @@
   var SS_RATE = 0.124;
   var MEDICARE_RATE = 0.029;
   var ADDL_MEDICARE_RATE = 0.009;
-  var ADDL_MEDICARE_THRESHOLD = { single: 200000, mfj: 250000 };
+  var ADDL_MEDICARE_THRESHOLD = { single: 200000, mfj: 250000, hoh: 200000 };
   var SE_MIN_NET = 400;
   var HIGH_AGI_SAFE_HARBOR = 150000;
 
@@ -83,7 +85,7 @@
 
   /**
    * @param {object} input
-   *   year: 2026|2027, status: "single"|"mfj",
+   *   year: 2026|2027, status: "single"|"mfj"|"hoh",
    *   income, expenses: self-employment gross income and business expenses (annual),
    *   w2Wages, otherIncome, w2Withholding, statePercent (0-20),
    *   priorYearTax, priorYearAgi (optional, for safe harbor),
@@ -93,7 +95,7 @@
     var year = Number(input.year);
     if (!TAX_YEARS[year]) throw new Error("Unsupported tax year: " + input.year);
     var status = input.status;
-    if (status !== "single" && status !== "mfj") throw new Error("Filing status must be single or mfj");
+    if (status !== "single" && status !== "mfj" && status !== "hoh") throw new Error("Filing status must be single, mfj or hoh");
 
     var income = num(input.income, "Income");
     var expenses = num(input.expenses, "Expenses");
