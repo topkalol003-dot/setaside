@@ -64,6 +64,9 @@ details summary { cursor: pointer; font-weight: 600; color: var(--green-2); }
 .disclaimer { font-size: .85rem; color: var(--muted); max-width: 80ch; margin-top: 16px; }
 
 .workbook > div { background: var(--card); border: 1px solid var(--line); border-left: 6px solid var(--accent); border-radius: var(--radius); padding: 28px; }
+.shot { margin: 8px 0 20px; }
+.shot img { width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; display: block; }
+.shot figcaption { font-size: .85rem; color: var(--muted); margin-top: 6px; }
 .checks { padding-left: 0; list-style: none; }
 .checks li { padding: 6px 0 6px 28px; position: relative; }
 .checks li::before { content: "\2713"; position: absolute; left: 0; color: var(--green-2); font-weight: 700; }
